@@ -49,7 +49,12 @@ namespace SignalRDemo.Server
             services.AddTransient(typeof(ICurrentUserService<>), typeof(CurrentUserService<>));
             services.AddHttpContextAccessor();
 
-            services.AddSignalR();
+            services.AddSignalR()
+                .AddHubOptions<Notification>(hubOptions =>
+                {
+                    hubOptions.EnableDetailedErrors = true;
+                });
+
             services.AddSingleton<IUserIdProvider, BasedUserIdProvider>();
         }
 
